@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solix — a solar system of your own machines</title>
+<meta name="description" content="Solix is mission control for a solar system of machines. A Mac becomes a planet, agents become crew, and a First Mate routes work to the model that's cheapest right now.">
+<meta property="og:title" content="Solix — a solar system of your own machines">
+<meta property="og:description" content="Mission control for machines that work while you don't.">
+<meta property="og:image" content="https://solix.fyi/og.png">
+<meta property="og:url" content="https://solix.fyi">
+<meta name="theme-color" content="#141210">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void:   oklch(0.17 0.012 60);
+  --void-2: oklch(0.22 0.014 60);
+  --ink:    oklch(0.91 0.02 80);
+  --muted:  oklch(0.62 0.025 70);
+  --faint:  oklch(0.42 0.02 65);
+  --copper: oklch(0.68 0.14 55);
+  --amber:  oklch(0.78 0.13 80);
+  --rule:   oklch(0.30 0.015 65);
+  --sans: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--void);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+::selection { background: var(--copper); color: var(--void); }
+
+canvas#sky {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+.wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+/* ---------- nav ---------- */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1.6rem 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+nav a { color: var(--muted); text-decoration: none; transition: color .25s ease; }
+nav a:hover { color: var(--copper); }
+nav .host { color: var(--ink); }
+nav .dot { color: var(--copper); }
+
+/* ---------- hero ---------- */
+.hero {
+  min-height: 82vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  gap: 2.2rem;
+  padding: 3rem 0 5rem;
+}
+.mark {
+  font-size: clamp(4px, 0.62vw, 7px);
+  line-height: 1.05;
+  color: var(--copper);
+  white-space: pre;
+  overflow: visible;
+  user-select: none;
+  text-shadow: 0 0 18px oklch(0.68 0.14 55 / 0.25);
+}
+.hero h1 {
+  font-size: clamp(2.6rem, 7vw, 5rem);
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--copper);
+}
+.hero .sub {
+  max-width: 34rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.hero .cta {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.cta a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--copper);
+  padding-bottom: 2px;
+  transition: color .25s ease, border-color .25s ease;
+}
+.cta a:hover { color: var(--copper); }
+.cta .dim { color: var(--faint); letter-spacing: 0.14em; }
+
+/* ---------- sections ---------- */
+section {
+  border-top: 1px solid var(--rule);
+  padding: clamp(3.5rem, 7vw, 6rem) 0;
+}
+.label {
+  font-size: 0.68rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--faint);
+  margin-bottom: 2.4rem;
+}
+h2 {
+  font-size: clamp(1.5rem, 3.4vw, 2.4rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-wrap: balance;
+  max-width: 40rem;
+  margin-bottom: 1.6rem;
+}
+h2 b { font-weight: 500; color: var(--copper); }
+.prose { max-width: 38rem; color: var(--muted); }
+.prose strong { color: var(--ink); font-weight: 500; }
+.prose + .prose { margin-top: 1.1rem; }
+
+/* system map */
+.map {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+@media (max-width: 760px) { .map { grid-template-columns: 1fr; } }
+.orbit { width: 100%; max-width: 30rem; margin-inline: auto; display: block; }
+.orbit .ring { fill: none; stroke: var(--rule); stroke-width: 1; }
+.orbit .ring.dash { stroke-dasharray: 2 5; }
+.orbit .center { fill: var(--copper); }
+.orbit .planet { fill: var(--ink); }
+.orbit .planet.dim { fill: var(--faint); }
+.orbit text {
+  fill: var(--muted);
+  font-family: var(--sans);
+  font-size: 7px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.orbit .sweep { transform-origin: 150px 150px; animation: spin 46s linear infinite; }
+.orbit .sweep.rev { animation-duration: 74s; animation-direction: reverse; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* crew states */
+.states {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.4rem;
+  margin-top: 2.6rem;
+  font-size: 0.8rem;
+}
+.state { display: flex; gap: 0.7rem; align-items: baseline; }
+.state .g { font-size: 1rem; }
+.state .g.active { color: var(--copper); }
+.state .g.holding { color: var(--amber); }
+.state .name { color: var(--ink); }
+.state .desc { color: var(--faint); font-size: 0.72rem; }
+
+/* terminal */
+.term {
+  border: 1px solid var(--rule);
+  background: var(--void-2);
+  margin-top: 2.8rem;
+  max-width: 44rem;
+}
+.term .bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.66rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.term pre {
+  padding: 1.2rem 1.3rem 1.4rem;
+  font-size: 0.78rem;
+  line-height: 1.8;
+  overflow-x: auto;
+  color: var(--muted);
+}
+.term .p { color: var(--copper); }
+.term .ok { color: var(--ink); }
+.term .dim { color: var(--faint); }
+.term .star { color: var(--amber); }
+
+/* crew/provider grid */
+.rows { margin-top: 2.6rem; border-top: 1px solid var(--rule); }
+.row {
+  display: grid;
+  grid-template-columns: 8rem 1fr auto;
+  gap: 1.4rem;
+  padding: 1.05rem 0;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.82rem;
+  align-items: baseline;
+}
+.row .k { color: var(--ink); }
+.row .v { color: var(--muted); }
+.row .t { color: var(--faint); font-size: 0.72rem; text-align: right; white-space: nowrap; }
+.row .t.promo { color: var(--copper); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 6.5rem 1fr; }
+  .row .t { grid-column: 2; text-align: left; }
+}
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding: 2.4rem 0 3rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+footer a { color: var(--muted); text-decoration: none; }
+footer a:hover { color: var(--copper); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .orbit .sweep { animation: none; }
+}
+</style>
+</head>
+<body>
+<canvas id="sky" aria-hidden="true"></canvas>
+<div class="wrap">
+
+<nav aria-label="Site">
+  <span class="host">solix<span class="dot">.fyi</span></span>
+  <span>
+    <a href="#system">system</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="#crew">crew</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="#mate">first mate</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="#deck">deck</a>&nbsp;&nbsp;·&nbsp;&nbsp;<a href="#get">get</a>
+  </span>
+</nav>
+
+<header class="hero">
+<pre class="mark" aria-hidden="true">                           ███████████████
+                     ███████████████████████████
+                 ███████████████
+              █████████████
+           ████████████
+         ███████████
+        ██████████
+      ██████████
+     ██████████
+    ██████████
+   ██████████
+  ██████████              █████████
+ ██████████           █████████████████
+ ██████████         █████████████████████
+███████████        ███████████████████████
+███████████       █████████████████████████
+███████████      ███████████████████████████
+████████████    █████████████████████████████    ████████████
+                █████████████████████████████     ████████████
+                █████████████████████████████     ████████████
+                 ███████████████████████████       ███████████
+                 ███████████████████████████       ███████████
+                  █████████████████████████       ███████████
+                   ███████████████████████        ███████████
+                     ███████████████████          ██████████
+                       ███████████████           ██████████
+                            █████               ███████████
+                                               ███████████
+                                              ███████████
+                                             ██████████
+                                           ███████████
+                                        ████████████
+                                     ████████████
+                               ███████████████
+               ████████████████████████████
+                    █████████████████</pre>
+  <h1>A solar system<br>of <em>your own machines.</em></h1>
+  <p class="sub">Solix is mission control for the computers you already run. A Mac becomes a planet, agents become crew, and a First Mate routes every job to the machine — and the model — that makes sense right now.</p>
+  <div class="cta">
+    <a href="#system">see the system</a>
+    <span class="dim">macOS host · iOS observatory · solix CLI</span>
+  </div>
+</header>
+
+<section id="system">
+  <p class="label">S Y S T E M</p>
+  <div class="map">
+    <div>
+      <h2>Every machine is a <b>planet.</b></h2>
+      <p class="prose">The host app turns any Mac into a reachable world: persistent terminals that survive disconnects, paired devices, secret permits, and a heartbeat of CPU, memory, and active crew. Your iPhone is the observatory — every planet on one dark globe, one tap from its consoles.</p>
+      <p class="prose">Add a server, a studio box, a spare mini — each enrolls into the same solar system and reports its own capacity. Work goes to where the project lives, not where the request happened to start.</p>
+    </div>
+    <svg class="orbit" viewBox="0 0 300 300" role="img" aria-label="Diagram: a central host with orbiting machines and agents">
+      <ellipse class="ring" cx="150" cy="150" rx="118" ry="58" transform="rotate(-18 150 150)"/>
+      <ellipse class="ring dash" cx="150" cy="150" rx="86" ry="40" transform="rotate(14 150 150)"/>
+      <ellipse class="ring" cx="150" cy="150" rx="134" ry="134"/>
+      <circle class="center" cx="150" cy="150" r="9"/>
+      <text x="150" y="132" text-anchor="middle">host</text>
+      <g class="sweep">
+        <circle class="planet" cx="150" cy="16" r="5"/>
+        <text x="150" y="6" text-anchor="middle">server</text>
+        <circle class="planet dim" cx="150" cy="284" r="3.5"/>
+      </g>
+      <g class="sweep rev">
+        <circle class="planet" cx="238" cy="150" r="4"/>
+        <text x="262" y="153">phone</text>
+        <circle class="planet dim" cx="62" cy="150" r="3"/>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section id="crew">
+  <p class="label">C R E W</p>
+  <h2>Agents are crew. <b>State is a glyph.</b></h2>
+  <p class="prose">Bots run in persistent terminals, not request threads — detach, come back tomorrow, the session is still warm. The roster reads like a flight board, and color is never the only signal.</p>
+  <div class="states" role="list">
+    <div class="state" role="listitem"><span class="g active">●</span><span class="name">active</span><span class="desc">producing output now</span></div>
+    <div class="state" role="listitem"><span class="g holding">◐</span><span class="name">holding</span><span class="desc">needs an answer</span></div>
+    <div class="state" role="listitem"><span class="g">✓</span><span class="name">landed</span><span class="desc">finished, unseen</span></div>
+    <div class="state" role="listitem"><span class="g">·</span><span class="name">drifting</span><span class="desc">quiet but alive</span></div>
+    <div class="state" role="listitem"><span class="g">?</span><span class="name">dark</span><span class="desc">can't tell</span></div>
+  </div>
+</section>
+
+<section id="mate">
+  <p class="label">F I R S T&nbsp;&nbsp;M A T E</p>
+  <h2>One agent <b>commands the rest.</b></h2>
+  <p class="prose"><code>/solix:first-mate</code> commandeers any agent shell into the orchestrator. It reads the chart — which projects live where, which planets have spare capacity, which models are free today — and dispatches work. Bounded tasks, real paths, expected output, a stopping condition.</p>
+  <p class="prose">Every landing writes a run record: provider, model, duration, outcome. First Mate scores the work and the next routing decision gets smarter. <strong>Cost is a first-class input, not an afterthought.</strong></p>
+  <div class="rows" role="table" aria-label="Example provider routing table">
+    <div class="row" role="row"><span class="k">devin</span><span class="v">swe · medium → max</span><span class="t promo">free promo</span></div>
+    <div class="row" role="row"><span class="k">gemini</span><span class="v">2.5-flash · free pool</span><span class="t promo">free promo</span></div>
+    <div class="row" role="row"><span class="k">codex</span><span class="v">spark → gpt-6-astra</span><span class="t">cheap → premium</span></div>
+    <div class="row" role="row"><span class="k">claude</span><span class="v">haiku → fable · effort levels</span><span class="t">cheap → premium</span></div>
+    <div class="row" role="row"><span class="k">+ nineteen more</span><span class="v">every CLI the planet has installed</span><span class="t">detected live</span></div>
+  </div>
+</section>
+
+<section id="helm">
+  <p class="label">H E L M</p>
+  <h2>Projects are <b>containers.</b></h2>
+  <p class="prose">A project holds everything that serves one purpose — the backend, the frontend, the site, the docs — plus its helm items: working-file scope and a permit list of secret names. Agents see the permits, never the values.</p>
+  <div class="term" aria-label="Terminal session">
+    <div class="bar"><span>solix — local socket</span><span>deck · crew of one</span></div>
+<pre><span class="p">$</span> solix project show solix
+<span class="dim">d938da9f  solix  ~/Developer/Code/Solix MAC</span>
+provider  codex
+secret    ANTHROPIC_API_KEY → claude
+file      RemoteCore/Sources/RemoteCore/Bots.swift
+
+<span class="p">$</span> solix mate --provider devin --model swe --effort high
+<span class="star">★</span> <span class="ok">First Mate online</span> — swe-2 high, unmetered today
+
+<span class="p">$</span> solix runs
+<span class="ok">a3f9c1d2</span>  scout   devin   2m41s  landed  <span class="star">5★</span>
+<span class="ok">77be12aa</span>  clerk   gemini  4m02s  landed  <span class="star">4★</span></pre>
+  </div>
+</section>
+
+<section id="deck">
+  <p class="label">D E C K</p>
+  <h2>Built to be <b>operated.</b></h2>
+  <p class="prose">A menu-bar host on the Mac. An orbital globe on the iPhone. A <code>solix</code> CLI that agents themselves can drive — the same skills, symlinked into every provider's directory, so <code>/solix</code> works the same in Devin, Claude, Codex, Grok, and everywhere else a shell can read a file.</p>
+  <p class="prose">No public control plane. Machines pair with QR invites and device keys; the host is authoritative; secrets stay in the keychain behind named permits.</p>
+</section>
+
+<section id="get">
+  <p class="label">G E T&nbsp;&nbsp;S O L I X</p>
+  <h2>Run your <b>own solar system.</b></h2>
+  <p class="prose">The macOS host ships as a plain zip — no installer, no store. It plants itself in your menu bar, installs the <code>solix</code> CLI, and starts at login.</p>
+  <div class="term" aria-label="Install steps">
+    <div class="bar"><span>get the host</span><span>macOS · arm64 · 3.8 MB</span></div>
+<pre><span class="p">$</span> curl -fLO https://solix.fyi/Solix-macOS.zip && unzip Solix-macOS.zip && cd Solix
+<span class="p">$</span> xattr -dr com.apple.quarantine RemoteHost.app   <span class="dim"># signed run-locally, not notarized</span>
+<span class="p">$</span> open RemoteHost.app                            <span class="dim"># menu bar — keep it running</span>
+<span class="p">$</span> ./solix install                                <span class="dim"># CLI → ~/.local/bin · app + login agent</span></pre>
+  </div>
+  <p class="prose" style="margin-top:1.6rem">Teach every agent on the machine to drive it — one repo, every provider's skill format:</p>
+  <div class="term" aria-label="Install the skills">
+    <div class="bar"><span>get the skills</span><span>github.com/Mojave-Studio/solix-skills</span></div>
+<pre><span class="p">$</span> solix skill add Mojave-Studio/solix-skills   <span class="dim"># inside a running host</span>
+<span class="dim"># or standalone — link into every agent's skills dir:</span>
+<span class="p">$</span> git clone https://github.com/Mojave-Studio/solix-skills ~/.config/solix-skills
+<span class="p">$</span> ~/.config/solix-skills/install.sh</pre>
+  </div>
+  <p class="prose" style="margin-top:1.6rem">Handing this off to an agent instead? Give it the repo README — it's written to be followed by one:
+  <a href="https://raw.githubusercontent.com/Mojave-Studio/solix-skills/main/README.md" style="color:var(--copper)">raw.githubusercontent.com/Mojave-Studio/solix-skills/main/README.md</a></p>
+  <div class="rows" role="table" aria-label="Security notes" style="margin-top:2.4rem">
+    <div class="row" role="row"><span class="k">pairing</span><span class="v">one-time token — QR on iPhone, or <code>solix pair</code> prints an invite + verification code to compare on both ends (headless-friendly, any OS)</span><span class="t">2-factor</span></div>
+    <div class="row" role="row"><span class="k">secrets</span><span class="v">macOS keychain, named permits only — values inject into the spawned process env, never cross the wire</span><span class="t">keychain</span></div>
+    <div class="row" role="row"><span class="k">network</span><span class="v">local socket (same-UID) + local network only — no public control plane; use a trusted LAN or Tailscale, transport is authenticated but not encrypted</span><span class="t">LAN only</span></div>
+    <div class="row" role="row"><span class="k">permissions</span><span class="v">per-device grants gate every remote op — a fresh pairing gets view-status only</span><span class="t">least privilege</span></div>
+  </div>
+</section>
+
+<footer>
+  <span>solix<span style="color:var(--copper)">.fyi</span> — for machines that work while you don't</span>
+  <span>observatory class · 2026</span>
+</footer>
+
+</div>
+
+<script>
+(function () {
+  var canvas = document.getElementById('sky');
+  var ctx = canvas.getContext('2d');
+  var stars = [];
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function resize() {
+    canvas.width = innerWidth * devicePixelRatio;
+    canvas.height = innerHeight * devicePixelRatio;
+    stars = [];
+    var count = Math.min(160, Math.floor(innerWidth * innerHeight / 9000));
+    for (var i = 0; i < count; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.1 + 0.3,
+        p: Math.random() * Math.PI * 2,
+        s: 0.4 + Math.random() * 0.8
+      });
+    }
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (var i = 0; i < stars.length; i++) {
+      var st = stars[i];
+      var a = reduced ? 0.35 : 0.2 + 0.3 * (0.5 + 0.5 * Math.sin(t * 0.0006 * st.s + st.p));
+      ctx.globalAlpha = a;
+      ctx.fillStyle = '#e9e4da';
+      ctx.beginPath();
+      ctx.arc(st.x, st.y, st.r * devicePixelRatio, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+    if (!reduced) requestAnimationFrame(draw);
+  }
+
+  resize();
+  addEventListener('resize', resize);
+  requestAnimationFrame(draw);
+})();
+</script>
+</body>
+</html>

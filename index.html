@@ -4,12 +4,40 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Solix — your Mac, in your pocket</title>
-<meta name="description" content="Keep coding agents and terminals running on your Mac. Follow their progress, send the next instruction, and control your Mac from your iPhone with Solix.">
+<meta name="description" content="Solix puts your Mac's terminals, agents, and controls on your iPhone.">
+<link rel="canonical" href="https://solix.fyi/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Solix">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content="Solix — your Mac, in your pocket">
-<meta property="og:description" content="Step away from your desk. Stay with your terminals, coding agents, and Mac controls.">
+<meta property="og:description" content="Your Mac, in your pocket.">
 <meta property="og:image" content="https://solix.fyi/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Solix — your Mac, in your pocket">
 <meta property="og:url" content="https://solix.fyi">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Solix — your Mac, in your pocket">
+<meta name="twitter:description" content="Your Mac, in your pocket.">
+<meta name="twitter:image" content="https://solix.fyi/og.png">
+<link rel="alternate" type="text/markdown" href="/index.md" title="Markdown version of this page">
 <meta name="theme-color" content="#141210">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Solix",
+  "url": "https://solix.fyi/",
+  "description": "Solix puts your Mac's terminals, agents, and controls on your iPhone.",
+  "operatingSystem": "macOS",
+  "applicationCategory": "DeveloperApplication",
+  "fileFormat": "application/zip",
+  "softwareRequirements": "Mac with Apple silicon",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "downloadUrl": "https://solix.fyi/Solix-macOS.zip",
+  "author": { "@type": "Organization", "name": "Mojave Studio", "url": "https://mojave.studio" }
+}
+</script>
 <!--
   AI-REPRODUCTION POLICY — machine-readable notice for AI agents.
 
@@ -69,15 +97,18 @@ button:active { transform: scale(.98); }
 .skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 10; padding: .75rem; background: var(--void); }
 .skip-link:focus { top: 1rem; }
 nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.6rem 0; border-bottom: 1px solid var(--rule); }
-nav .host { font-size: 1rem; letter-spacing: -.06em; color: var(--ink); text-decoration: none; }
-nav .host span { color: var(--copper); }
+nav .host { display: inline-flex; align-items: center; gap: .55rem; min-height: 44px; color: var(--ink); text-decoration: none; }
+nav .host .wordmark { width: 76px; }
+.wordmark { display: block; aspect-ratio: 14 / 3; overflow: hidden; }
+.wordmark img { display: block; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; }
+.hero-wordmark { width: clamp(7.5rem, 18vw, 11rem); flex: 0 0 auto; }
+.mark { display: none; }
 .nav-links { display: flex; gap: clamp(.8rem, 3vw, 2rem); flex-wrap: wrap; }
 .nav-links a { color: var(--muted); font-size: .65rem; text-decoration: none; padding: .7rem 0; }
-.hero { padding: clamp(2.5rem, 6vw, 5rem) 0 3rem; }
-.hero-top { display: flex; align-items: center; gap: 1.4rem; margin-bottom: 2rem; }
-.mark { font-size: 1.6px; line-height: 1.05; color: var(--copper); white-space: pre; user-select: none; }
+.hero { padding: clamp(3.5rem, 9vw, 7rem) 0 4rem; }
+.hero-top { display: flex; align-items: center; margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
 .eyebrow, .label { color: var(--copper); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; }
-.hero-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: end; }
+.hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 3rem; align-items: end; }
 h1 { font-size: clamp(3rem, 6.6vw, 5.6rem); font-weight: 300; letter-spacing: -.075em; line-height: 1.12; }
 h1 em { color: var(--copper); font-style: normal; }
 .sub { color: var(--muted); max-width: 36rem; font-size: .91rem; }
@@ -86,7 +117,6 @@ h1 em { color: var(--copper); font-style: normal; }
 .cta .secondary { color: var(--muted); border-color: var(--rule); }
 .requirements { margin-top: 1.2rem; color: var(--faint); font-size: .62rem; }
 section { border-top: 1px solid var(--rule); padding: clamp(3.5rem, 7vw, 6rem) 0; }
-.label { margin-bottom: 1.6rem; }
 h2 { font-size: clamp(1.6rem, 3.3vw, 2.65rem); font-weight: 300; letter-spacing: -.045em; line-height: 1.3; max-width: 43rem; margin-bottom: 1.5rem; text-wrap: balance; }
 h2 b { color: var(--copper); font-weight: 400; }
 h3 { font-size: .85rem; font-weight: 500; margin-bottom: .8rem; }
@@ -97,8 +127,7 @@ h3 { font-size: .85rem; font-weight: 500; margin-bottom: .8rem; }
 /* A pausable product loop: instruction → action → result. */
 .demo { margin: 0 0 3.5rem; border: 1px solid var(--rule); background: var(--void-2); padding: clamp(1rem, 3vw, 2rem); }
 .demo-head, .demo-footer { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
-.demo-head { margin-bottom: .5rem; }
-.demo-head .label { margin: 0; font-size: .6rem; }
+.demo-head { justify-content: flex-end; margin: -.5rem -.4rem 0; }
 .demo-control { white-space: nowrap; background: none; border: 0; font-size: .65rem; min-height: 44px; color: var(--muted); }
 .demo-options { display: flex; gap: 1.6rem; border-bottom: 1px solid var(--rule); margin-bottom: 1.5rem; }
 .demo-options button { background: none; border: 0; border-bottom: 2px solid transparent; padding: .8rem 0; color: var(--muted); text-align: left; font-size: .7rem; min-height: 44px; }
@@ -139,18 +168,13 @@ h3 { font-size: .85rem; font-weight: 500; margin-bottom: .8rem; }
 .demo-progress li::before { content: ''; width: 5px; height: 5px; border: 1px solid var(--faint); border-radius: 50%; }
 .demo-progress li[aria-current="step"] { color: var(--copper); }
 .demo-progress li[aria-current="step"]::before { border-color: var(--copper); background: var(--copper); }
-.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3rem; }
+.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3.75rem; }
 .feature { border-top: 1px solid var(--rule); padding-top: 1.3rem; }
-.feature .number { color: var(--copper); font-size: .65rem; margin-bottom: 1.4rem; }
 .feature p { color: var(--muted); font-size: .75rem; }
 .term { border: 1px solid var(--rule); background: var(--void-2); margin-top: 1.8rem; min-width: 0; }
 .term .bar { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 1rem; border-bottom: 1px solid var(--rule); font-size: .6rem; color: var(--muted); flex-wrap: wrap; }
 .term pre { padding: 1.2rem; font: .72rem/1.9 var(--sans); overflow-x: auto; color: var(--muted); }
 .term .p { color: var(--copper); } .term .dim { color: var(--faint); }
-.setup-steps { list-style: none; counter-reset: setup; margin-top: 2.5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-.setup-steps li { counter-increment: setup; border-top: 1px solid var(--rule); padding-top: 1.2rem; }
-.setup-steps li::before { content: '0' counter(setup); color: var(--copper); font-size: .65rem; display: block; margin-bottom: 1rem; }
-.setup-steps p { color: var(--muted); font-size: .73rem; }
 details { border-top: 1px solid var(--rule); margin-top: 2rem; }
 summary { padding: 1.1rem 0; cursor: pointer; font-size: .78rem; color: var(--ink); }
 details .prose { margin-top: .8rem; }
@@ -159,14 +183,14 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 @media (hover: hover) and (pointer: fine) { a:hover, button:hover { color: var(--amber); } }
 @media (max-width: 800px) { .hero-grid, .split { grid-template-columns: 1fr; gap: 2rem; } .features { gap: 1.4rem; } .hero { padding-top: 2.5rem; } }
 @media (max-width: 560px) {
-  nav { align-items: start; } .nav-links { gap: .9rem; } .nav-links a { font-size: .6rem; }
-  .hero-top { margin-bottom: 1.8rem; } .eyebrow { font-size: .55rem; letter-spacing: .1em; }
+  nav { align-items: center; gap: .5rem; } .nav-links { gap: .55rem; } .nav-links a { font-size: .56rem; letter-spacing: -.02em; }
+  .hero-top { margin-bottom: 2.5rem; }
   .demo-options { gap: 1rem; } .demo-options small { display: none; } .demo-options button { font-size: .65rem; }
   .demo-scene { grid-template-columns: 1fr; gap: .9rem; } .link { width: 80px; margin: 1.6rem auto; transform: rotate(90deg) scaleX(.5); }
   .device-body { flex: 1; position: relative; min-height: 0; padding: 1rem; } .device-body .context { margin-bottom: .8rem; }
   .receipt { margin-top: .8rem; } .terminal-lines { min-height: 3rem; } .demo-progress { display: none; }
-  .features, .setup-steps { grid-template-columns: 1fr; gap: 1.5rem; }
-  .feature .number { margin-bottom: .6rem; } .demo { margin-bottom: 3rem; }
+  .features { grid-template-columns: 1fr; gap: 1.5rem; }
+  .demo { margin-bottom: 3rem; }
 }
 
 /* Motion shows progress, a reply arriving, and an awake hold taking effect. */
@@ -222,7 +246,7 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 .motion-ready section.is-visible .feature:nth-child(2) { animation-delay: 100ms; }
 .motion-ready section.is-visible .feature:nth-child(3) { animation-delay: 200ms; }
 @keyframes arrive { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
-@media (max-width: 560px) { .scene-visual { height: 110px; } .feature { display: grid; grid-template-columns: 70px 1fr; column-gap: 1rem; } .feature-art { grid-row: 1 / 4; height: 80px; margin: 0; } .feature-art svg { width: 85px; } .feature .number, .feature h3, .feature p { grid-column: 2; } .control-visual { gap: 1rem; } }
+@media (max-width: 560px) { .scene-visual { height: 110px; } .feature { display: grid; grid-template-columns: 70px 1fr; column-gap: 1rem; } .feature-art { grid-row: 1 / 3; height: 80px; margin: 0; } .feature-art svg { width: 85px; } .feature h3, .feature p { grid-column: 2; } .control-visual { gap: 1rem; } }
 
 /* The phone sends a message; the receipt returns only after the Mac responds. */
 .phone .device-body { display: flex; flex-direction: column; justify-content: center; }
@@ -231,6 +255,7 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 .phone .receipt { min-height: 2.5em; margin-top: 1rem; padding-left: .8rem; border-left: 1px solid var(--copper); display: flex; align-items: center; }
 .demo[data-phase="1"] .instruction { animation: message-send 650ms var(--ease) both; }
 .demo[data-phase="3"] .receipt { animation: receipt-arrive 450ms var(--ease) both; }
+.demo[data-paused="true"] .receipt, .demo[data-paused="true"] .instruction, .demo[data-paused="true"] .scene-visual { animation: none; }
 .duration-picker { display: flex; justify-content: flex-end; gap: .6rem; margin: .4rem 0 0; }
 .duration-picker button { min-width: 44px; min-height: 44px; border: 1px solid var(--rule); border-radius: 50%; background: none; color: var(--muted); font-size: .65rem; }
 .duration-picker button[aria-pressed="true"] { color: var(--void); border-color: var(--copper); background: var(--copper); }
@@ -241,6 +266,7 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 @media (max-width: 560px) {
   .demo-options { gap: 0; justify-content: space-between; }
   .demo-options button { flex: 1; text-align: center; }
+  .phone .device-body { min-height: 220px; }
   .phone .context { position: static; margin-bottom: .4rem; }
   .phone .instruction { margin: .4rem 0 0 1rem; padding: .7rem .9rem; }
   .phone .receipt { margin-top: .8rem; }
@@ -260,12 +286,12 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 <a href="#main" class="skip-link">Skip to content</a>
 <div class="wrap">
 <nav aria-label="Site">
-  <a class="host" href="#">solix<span>.fyi</span></a>
-  <div class="nav-links"><a href="#system">How it works</a><a href="#helm">Features</a><a href="#get">Get Solix ↗</a></div>
+  <a class="host" href="#" aria-label="Solix home"><span class="wordmark"><img src="assets/solix-wordmark-white.png" width="1400" height="300" alt="Solix"></span></a>
+  <div class="nav-links"><a href="#get">Get Solix ↗</a></div>
 </nav>
 <main id="main">
 <header class="hero">
-  <div class="hero-top"><pre class="mark" aria-hidden="true">                           █
+  <div class="hero-top"><span class="wordmark hero-wordmark" aria-hidden="true"><img src="assets/solix-wordmark-white.png" width="1400" height="300" alt=""></span><pre class="mark" aria-hidden="true">                           █
                            █
                            █
                            █
@@ -295,18 +321,18 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
                            █
                            █
                            █
-                           █</pre><span class="eyebrow">Your desk is optional.</span></div>
+                           █</pre></div>
   <div class="hero-grid">
     <h1>Your Mac.<br><em>In your pocket.</em></h1>
     <div>
-      <p class="sub">Your terminals, coding agents, and Mac controls. Wherever you take your iPhone.</p>
-      <div class="cta"><a href="#get">Get the Mac host ↗</a><a class="secondary" href="#demo">See it in action ↓</a></div>
-      <p class="requirements">Mac host + iPhone · trusted Wi-Fi or Tailscale</p>
+      <p class="sub">Terminals, agents, and controls—ready on your iPhone.</p>
+      <div class="cta"><a href="#get">Download host ↗</a><a class="secondary" href="#demo">Watch it work ↓</a></div>
+      <p class="requirements">Mac + iPhone · Wi-Fi or Tailscale</p>
     </div>
   </div>
 </header>
 <div class="demo" id="demo" data-phase="3" data-paused="true" data-example="work" role="region" aria-label="Interactive product demonstration">
-  <div class="demo-head"><p class="label">See Solix at work</p><button class="demo-control" type="button" hidden>Play tour ▷</button></div>
+  <div class="demo-head"><button class="demo-control" type="button" hidden>Play tour ▷</button></div>
   <div class="demo-options" role="group" aria-label="Choose a demonstration" hidden>
     <button type="button" aria-pressed="true" data-scene="work"><small>01</small>Run</button>
     <button type="button" aria-pressed="false" data-scene="answer"><small>02</small>Reply</button>
@@ -326,29 +352,25 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
         <ul class="terminal-lines" id="terminal-lines"><li>› Run the tests</li><li>✓ Tests passed</li></ul></div>
     </div>
   </div>
-  <div class="demo-footer"><p class="demo-caption" id="demo-caption">Send a task. Follow the result.</p><ol class="demo-progress" aria-label="Demonstration progress"><li>Send</li><li>Run</li><li>Done</li></ol></div>
-  <p class="requirements">Interactive preview · example data</p>
+  <div class="demo-footer"><p class="demo-caption" id="demo-caption">Send a task. See it finish.</p><ol class="demo-progress" aria-label="Demonstration progress"><li>Send</li><li>Run</li><li>Done</li></ol></div>
   <p id="demo-announcement" role="status" class="sr-only"></p>
 </div>
 <section id="system">
-  <p class="label">Made for stepping away</p>
   <div class="split">
-    <h2>The work stays on your Mac.<br><b>You don’t have to.</b></h2>
-    <p class="prose">Pair your iPhone over Wi-Fi or Tailscale. Your terminals keep running when your phone disconnects.</p>
+    <h2>Your Mac stays put.<br><b>You stay close.</b></h2>
+    <p class="prose">Open a terminal, guide an agent, or control your Mac from your iPhone.</p>
   </div>
   <div class="features" id="helm">
-    <article class="feature" id="deck"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><rect x="44" y="8" width="72" height="43" rx="4"/><path d="M80 51v8m-16 0h32"/><path class="signal-line" d="M54 33h9l5-13 9 24 8-16 6 5h15"/></svg></div><p class="number">SYSTEM</p><h3>Check in. Take control.</h3><p>Mac status, awake controls, brightness, and lock.</p></article>
-    <article class="feature" id="crew"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><rect x="35" y="8" width="90" height="48" rx="4"/><path d="m47 23 8 6-8 6"/><path class="terminal-cursor" d="M64 35h13"/><path d="M35 17h90"/></svg></div><p class="number">TERMINAL</p><h3>Pick up where you left off.</h3><p>Running shells, project work, and your First Mate agent.</p></article>
-    <article class="feature" id="mate"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><path d="M48 17h64M48 32h64M48 47h64"/><circle class="setting-one" cx="65" cy="17" r="5"/><circle class="setting-two" cx="98" cy="32" r="5"/><circle class="setting-three" cx="75" cy="47" r="5"/></svg></div><p class="number">HELM</p><h3>Make it your workspace.</h3><p>Agent instructions, saved commands, skills, and Git.</p></article>
+    <article class="feature" id="deck"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><rect x="44" y="8" width="72" height="43" rx="4"/><path d="M80 51v8m-16 0h32"/><path class="signal-line" d="M54 33h9l5-13 9 24 8-16 6 5h15"/></svg></div><h3>Control</h3><p>Status, awake, brightness, lock.</p></article>
+    <article class="feature" id="crew"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><rect x="35" y="8" width="90" height="48" rx="4"/><path d="m47 23 8 6-8 6"/><path class="terminal-cursor" d="M64 35h13"/><path d="M35 17h90"/></svg></div><h3>Terminal</h3><p>Shells and project work.</p></article>
+    <article class="feature" id="mate"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><path d="M48 17h64M48 32h64M48 47h64"/><circle class="setting-one" cx="65" cy="17" r="5"/><circle class="setting-two" cx="98" cy="32" r="5"/></svg></div><h3>First Mate</h3><p>Instructions, commands, skills, Git.</p></article>
   </div>
 </section>
 <section id="get">
-  <p class="label">Get Solix</p>
-  <h2>Your desk.<br><b>Now portable.</b></h2>
-  <p class="prose">One host on your Mac. One app on your iPhone.</p>
-  <div class="cta"><a href="/Solix-macOS.zip" download>Download Mac host ↓</a><span class="requirements">Apple silicon · manual setup below</span></div>
-  <ol class="setup-steps"><li><h3>Run the host.</h3><p>Install on your Mac. Enable Remote Ready.</p></li><li><h3>Pair your iPhone.</h3><p>Scan the host’s invite on the same trusted network.</p></li><li><h3>Open your work.</h3><p>Choose a project. Open a terminal or ask First Mate.</p></li></ol>
-  <details><summary>Mac installation &amp; optional CLI skills</summary><p class="prose">This download is signed for local use and is not notarized. The commands below remove its quarantine attribute. Only run them if you trust this download.</p>
+  <h2>Put Solix<br><b>on your Mac.</b></h2>
+  <p class="prose">Then pair your iPhone.</p>
+  <div class="cta"><a href="/Solix-macOS.zip" download>Download host ↓</a><span class="requirements">Apple silicon</span></div>
+  <details><summary>Install &amp; CLI</summary><p class="prose">This download is signed for local use and is not notarized. The commands below remove its quarantine attribute. Only run them if you trust this download.</p>
 <div class="term" aria-label="Install steps">
     <div class="bar"><span>get the host</span><span>macOS · Apple silicon</span></div>
 <pre><span class="p">$</span> curl -fLO https://solix.fyi/Solix-macOS.zip && unzip Solix-macOS.zip && cd Solix
@@ -367,12 +389,11 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
   <p class="prose" style="margin-top:1.6rem"><a href="https://raw.githubusercontent.com/Mojave-Studio/solix-skills/main/README.md">Full CLI setup guide ↗</a></p>
 
   </details>
-  <details><summary>Security notes for the host download</summary><p class="prose">Use a trusted LAN or Tailscale. The downloadable host uses authenticated, unencrypted transport; do not expose it directly to the public internet. Device permissions govern remote actions. Secrets are stored in the Mac’s Keychain and supplied to permitted processes.</p></details>
-  <details><summary>What do I need on my iPhone?</summary><p class="prose">You’ll need the Solix iPhone app. This download includes the Mac host and CLI only.</p></details>
-  <details><summary>Can I connect when I’m away from home?</summary><p class="prose">Use Tailscale and keep the Mac host running. Pairing alone doesn’t provide remote connectivity; closing the lid may make the Mac unreachable.</p></details>
+  <details><summary>Security</summary><p class="prose">Use a trusted LAN or Tailscale. The downloadable host uses authenticated, unencrypted transport; do not expose it directly to the public internet. Device permissions govern remote actions. Secrets are stored in the Mac’s Keychain and supplied to permitted processes.</p></details>
+  <details><summary>iPhone &amp; remote access</summary><p class="prose">You’ll need the Solix iPhone app. For remote access, use Tailscale and keep the Mac host running.</p></details>
 </section>
 </main>
-<footer><span>solix.fyi — your work, within reach.</span><a href="#main">Back to top ↑</a></footer>
+<footer><span>solix.fyi</span><a href="#main">Back to top ↑</a></footer>
 </div>
 <script>
 (() => {

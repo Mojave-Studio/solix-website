@@ -1,0 +1,22 @@
+# Solix
+
+> Solix puts your Mac's terminals, agents, and controls on your iPhone.
+
+Solix is a Mojave Studio product: a macOS host app plus an iPhone companion for
+opening terminals, guiding coding agents, and controlling your Mac remotely
+over Wi-Fi or Tailscale. The host is signed for local use and is not notarized;
+use a trusted LAN or Tailscale and do not expose it to the public internet.
+
+## Read first
+
+- [Homepage (Markdown)](https://solix.fyi/index.md): the same page content as Markdown.
+- [Full CLI setup guide](https://raw.githubusercontent.com/Mojave-Studio/solix-skills/main/README.md): install and use the host CLI and skills.
+
+## Downloads
+
+- [Solix host for macOS](https://solix.fyi/Solix-macOS.zip): Apple silicon, signed for local use, not notarized.
+
+## Repositories
+
+- [solix-skills](https://github.com/Mojave-Studio/solix-skills): agent skills for driving the host CLI.
+- [solix-website](https://github.com/Mojave-Studio/solix-website): source for this site.

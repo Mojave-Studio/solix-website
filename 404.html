@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not found — Solix</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="This page does not exist on solix.fyi.">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: oklch(0.17 0.012 60);
+  --ink: oklch(0.91 0.02 80);
+  --muted: oklch(0.72 0.025 70);
+  --copper: oklch(0.75 0.14 55);
+  --rule: oklch(0.32 0.015 65);
+  --sans: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--void); color: var(--ink); font: 14px/1.8 var(--sans); -webkit-font-smoothing: antialiased; }
+a { color: var(--copper); text-underline-offset: 5px; }
+:focus-visible { outline: 2px solid var(--copper); outline-offset: 5px; }
+.wrap { max-width: 78rem; margin: auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+main { min-height: 100svh; display: flex; flex-direction: column; justify-content: center; }
+.label { color: var(--copper); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 1.5rem; }
+h1 { font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 300; letter-spacing: -.06em; line-height: 1.12; margin-bottom: 1.5rem; }
+p { color: var(--muted); font-size: .82rem; max-width: 36rem; }
+p + p { margin-top: 2rem; font-size: .72rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<main>
+  <p class="label">404</p>
+  <h1>Nothing here.</h1>
+  <p>This page doesn't exist on solix.fyi — it may have moved, or the link is wrong.</p>
+  <p><a href="/">← Back to solix.fyi</a></p>
+</main>
+</div>
+</body>
+</html>

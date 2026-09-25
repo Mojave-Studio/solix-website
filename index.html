@@ -102,12 +102,10 @@ nav .host .wordmark { width: 76px; }
 .wordmark { display: block; aspect-ratio: 14 / 3; overflow: hidden; }
 .wordmark img { display: block; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; }
 .hero-wordmark { width: clamp(7.5rem, 18vw, 11rem); flex: 0 0 auto; }
-.mark { display: none; }
 .nav-links { display: flex; gap: clamp(.8rem, 3vw, 2rem); flex-wrap: wrap; }
 .nav-links a { color: var(--muted); font-size: .65rem; text-decoration: none; padding: .7rem 0; }
 .hero { padding: clamp(3.5rem, 9vw, 7rem) 0 4rem; }
 .hero-top { display: flex; align-items: center; margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
-.eyebrow, .label { color: var(--copper); font-size: .65rem; letter-spacing: .2em; text-transform: uppercase; }
 .hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 3rem; align-items: end; }
 h1 { font-size: clamp(3rem, 6.6vw, 5.6rem); font-weight: 300; letter-spacing: -.075em; line-height: 1.12; }
 h1 em { color: var(--copper); font-style: normal; }
@@ -291,37 +289,7 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 </nav>
 <main id="main">
 <header class="hero">
-  <div class="hero-top"><span class="wordmark hero-wordmark" aria-hidden="true"><img src="assets/solix-wordmark-white.png" width="1400" height="300" alt=""></span><pre class="mark" aria-hidden="true">                           █
-                           █
-                           █
-                           █
-                           █
-                   ██      █      ██
-           ██       ██     █     ██       ██
-            ██       █     █     █       ██
-              ██      █    █    █      ██
-               ███    ██   █   ██    ███
-                 ███   █       █   ███
-         ████      ██             ██      ████
-            █████                     █████
-                 ██                 ██
-
-██████████████████                   ██████████████████
-
-                 ██                 ██
-            █████                     █████
-         ████      ██             ██      ████
-                 ███   █       █   ███
-               ███    ██   █   ██    ███
-              ██      █    █    █      ██
-            ██       █     █     █       ██
-           ██       ██     █     ██       ██
-                   ██      █      ██
-                           █
-                           █
-                           █
-                           █
-                           █</pre></div>
+  <div class="hero-top"><span class="wordmark hero-wordmark" aria-hidden="true"><img src="assets/solix-wordmark-white.png" width="1400" height="300" alt=""></span></div>
   <div class="hero-grid">
     <h1>Your Mac.<br><em>In your pocket.</em></h1>
     <div>
@@ -405,9 +373,9 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
   const steps = [...demo.querySelectorAll('.demo-progress li')];
   let awakeMinutes = 60;
   const scenes = {
-    work: { context: 'FIRST MATE', instruction: 'Run the tests.', mac: 'PROJECT TERMINAL', lines: ['› Run the tests', '✓ Tests passed'], receipts: ['Ready', '↗ Sent', 'Running on your Mac…', '✓ Tests passed'], caption: 'Send a task. Follow the result.' },
-    answer: { context: 'FIRST MATE', instruction: 'Use the existing helper.', mac: 'AGENT SESSION', lines: ['? Reuse the helper?', '✓ Agent resumed'], receipts: ['Needs your answer', '↗ Reply sent', 'Reply received', '✓ Back to work'], caption: 'Agent needs input? Answer from here.' },
-    control: { context: 'MAC CONTROLS', instruction: 'Stay awake for an hour.', mac: 'AWAKE HOLD', lines: ['› Keep awake · 1h', '✓ Hold confirmed'], receipts: ['Ready', '↗ Sent', 'Applying…', '✓ Mac is awake'], caption: 'Keep the Mac awake while it works.' }
+    work: { context: 'FIRST MATE', instruction: 'Run the tests.', mac: 'PROJECT TERMINAL', lines: ['› Run the tests', '✓ Tests passed'], receipts: ['Ready', '↗ Sent', 'Running on your Mac…', '✓ Tests passed'], caption: 'Send a task. See it finish.' },
+    answer: { context: 'FIRST MATE', instruction: 'Use the existing helper.', mac: 'AGENT SESSION', lines: ['? Reuse the helper?', '✓ Agent resumed'], receipts: ['Needs your answer', '↗ Reply sent', 'Reply received', '✓ Back to work'], caption: 'Reply from your iPhone.' },
+    control: { context: 'MAC CONTROLS', instruction: 'Stay awake for an hour.', mac: 'AWAKE HOLD', lines: ['› Keep awake · 1h', '✓ Hold confirmed'], receipts: ['Ready', '↗ Sent', 'Applying…', '✓ Mac is awake'], caption: 'Keep your Mac awake.' }
   };
   let selected = 'work', phase = 3, timer = null, remaining = 1100, started = 0;
   let inView = false, playing = false, hasStarted = false, cycling = true;

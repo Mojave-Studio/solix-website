@@ -15,6 +15,13 @@ use a trusted LAN or Tailscale and do not expose it to the public internet.
 ## Downloads
 
 - [Solix host for macOS](https://solix.fyi/Solix-macOS.zip): Apple silicon, signed for local use, not notarized.
+- [Solix host for Windows](https://solix.fyi/solix-host-windows.exe): single binary — `solix-host serve` / `solix-host invite`.
+- [Solix host for Linux](https://solix.fyi/solix-host-linux): single binary; optional [systemd user unit](https://solix.fyi/solix-host.service).
+
+## Legal
+
+- [Privacy Policy](https://solix.fyi/privacy): what the service stores (accounts + a device directory) and what never leaves your devices.
+- [User Agreement](https://solix.fyi/terms): terms for the host software, iOS app, and backend service.
 
 ## Repositories
 

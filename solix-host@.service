@@ -1,0 +1,17 @@
+[Unit]
+Description=Solix desktop host (%i)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=%i
+Environment=SHELL=/bin/bash
+# %h resolves to the MANAGER's home (/root) in system units — only user units
+# map it to User=. HOME is set from User= at exec time, so expand it via sh.
+ExecStart=/bin/sh -c 'exec "$HOME/.local/bin/solix-host" serve'
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

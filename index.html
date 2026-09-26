@@ -101,11 +101,9 @@ nav .host { display: inline-flex; align-items: center; gap: .55rem; min-height: 
 nav .host .wordmark { width: 76px; }
 .wordmark { display: block; aspect-ratio: 14 / 3; overflow: hidden; }
 .wordmark img { display: block; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; }
-.hero-wordmark { width: clamp(7.5rem, 18vw, 11rem); flex: 0 0 auto; }
 .nav-links { display: flex; gap: clamp(.8rem, 3vw, 2rem); flex-wrap: wrap; }
 .nav-links a { color: var(--muted); font-size: .65rem; text-decoration: none; padding: .7rem 0; }
 .hero { padding: clamp(3.5rem, 9vw, 7rem) 0 4rem; }
-.hero-top { display: flex; align-items: center; margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
 .hero-grid { display: grid; grid-template-columns: 1.25fr .75fr; gap: 3rem; align-items: end; }
 h1 { font-size: clamp(3rem, 6.6vw, 5.6rem); font-weight: 300; letter-spacing: -.075em; line-height: 1.12; }
 h1 em { color: var(--copper); font-style: normal; }
@@ -182,7 +180,6 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 @media (max-width: 800px) { .hero-grid, .split { grid-template-columns: 1fr; gap: 2rem; } .features { gap: 1.4rem; } .hero { padding-top: 2.5rem; } }
 @media (max-width: 560px) {
   nav { align-items: center; gap: .5rem; } .nav-links { gap: .55rem; } .nav-links a { font-size: .56rem; letter-spacing: -.02em; }
-  .hero-top { margin-bottom: 2.5rem; }
   .demo-options { gap: 1rem; } .demo-options small { display: none; } .demo-options button { font-size: .65rem; }
   .demo-scene { grid-template-columns: 1fr; gap: .9rem; } .link { width: 80px; margin: 1.6rem auto; transform: rotate(90deg) scaleX(.5); }
   .device-body { flex: 1; position: relative; min-height: 0; padding: 1rem; } .device-body .context { margin-bottom: .8rem; }
@@ -289,7 +286,6 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 </nav>
 <main id="main">
 <header class="hero">
-  <div class="hero-top"><span class="wordmark hero-wordmark" aria-hidden="true"><img src="assets/solix-wordmark-white.png" width="1400" height="300" alt=""></span></div>
   <div class="hero-grid">
     <h1>Your Mac.<br><em>In your pocket.</em></h1>
     <div>
@@ -335,16 +331,16 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
   </div>
 </section>
 <section id="get">
-  <h2>Put Solix<br><b>on your Mac.</b></h2>
+  <h2>Put Solix<br><b>on a machine.</b></h2>
   <p class="prose">Then pair your iPhone.</p>
-  <div class="cta"><a href="/Solix-macOS.zip" download>Download host ↓</a><span class="requirements">Apple silicon</span></div>
-  <details><summary>Install &amp; CLI</summary><p class="prose">This download is signed for local use and is not notarized. The commands below remove its quarantine attribute. Only run them if you trust this download.</p>
+  <div class="cta"><a href="/Solix-macOS.zip" download>Download host ↓</a><span class="requirements">macOS · Windows · Linux</span></div>
+  <details><summary>Install &amp; CLI · macOS</summary><p class="prose">This download is signed for local use and is not notarized. The commands below remove its quarantine attribute. Only run them if you trust this download.</p>
 <div class="term" aria-label="Install steps">
     <div class="bar"><span>get the host</span><span>macOS · Apple silicon</span></div>
 <pre><span class="p">$</span> curl -fLO https://solix.fyi/Solix-macOS.zip && unzip Solix-macOS.zip && cd Solix
-<span class="p">$</span> xattr -dr com.apple.quarantine RemoteHost.app   <span class="dim"># signed run-locally, not notarized</span>
-<span class="p">$</span> open RemoteHost.app                            <span class="dim"># menu bar — keep it running</span>
-<span class="p">$</span> ./solix install                                <span class="dim"># CLI → ~/.local/bin · app + login agent</span></pre>
+<span class="p">$</span> xattr -dr com.apple.quarantine Solix.app   <span class="dim"># signed run-locally, not notarized</span>
+<span class="p">$</span> open Solix.app                            <span class="dim"># menu bar — keep it running</span>
+<span class="p">$</span> ./solix install                           <span class="dim"># CLI → ~/.local/bin · app + login agent</span></pre>
   </div>
   <p class="prose" style="margin-top:1.6rem">Optional: install the Solix skills so your coding agent can use the host CLI.</p>
   <div class="term" aria-label="Install the skills">
@@ -357,11 +353,32 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
   <p class="prose" style="margin-top:1.6rem"><a href="https://raw.githubusercontent.com/Mojave-Studio/solix-skills/main/README.md">Full CLI setup guide ↗</a></p>
 
   </details>
+  <details><summary>Install &amp; CLI · Windows</summary><p class="prose">The Windows host is a single binary — no installer. Put it somewhere stable, run it, and keep it running.</p>
+<div class="term" aria-label="Windows install steps">
+    <div class="bar"><span>get the host</span><span>Windows · PowerShell</span></div>
+<pre><span class="p">&gt;</span> irm https://solix.fyi/solix-host-windows.exe -OutFile solix-host.exe
+<span class="p">&gt;</span> .\solix-host.exe serve                    <span class="dim"># starts the host — keep it running</span>
+<span class="p">&gt;</span> .\solix-host.exe invite                   <span class="dim"># print a pairing invite</span></pre>
+  </div>
+  <p class="prose" style="margin-top:1.6rem">Autostart: drop a shortcut to <strong>solix-host.exe serve</strong> in <strong>shell:startup</strong>, or register a Scheduled Task.</p>
+  </details>
+  <details><summary>Install &amp; CLI · Linux</summary><p class="prose">Single binary — install it to <strong>~/.local/bin</strong>, then run it directly or as a user service.</p>
+<div class="term" aria-label="Linux install steps">
+    <div class="bar"><span>get the host</span><span>Linux · systemd</span></div>
+<pre><span class="p">$</span> curl -fLO https://solix.fyi/solix-host-linux && chmod +x solix-host-linux
+<span class="p">$</span> mkdir -p ~/.local/bin && mv solix-host-linux ~/.local/bin/solix-host
+<span class="p">$</span> solix-host serve                       <span class="dim"># starts the host</span>
+<span class="dim"># autostart as a user service (optional):</span>
+<span class="p">$</span> mkdir -p ~/.config/systemd/user
+<span class="p">$</span> curl -fLo ~/.config/systemd/user/solix-host.service https://solix.fyi/solix-host.service
+<span class="p">$</span> systemctl --user enable --now solix-host  <span class="dim"># headless: solix-host@&lt;user&gt; instead</span></pre>
+  </div>
+  </details>
   <details><summary>Security</summary><p class="prose">Use a trusted LAN or Tailscale. The downloadable host uses authenticated, unencrypted transport; do not expose it directly to the public internet. Device permissions govern remote actions. Secrets are stored in the Mac’s Keychain and supplied to permitted processes.</p></details>
   <details><summary>iPhone &amp; remote access</summary><p class="prose">You’ll need the Solix iPhone app. For remote access, use Tailscale and keep the Mac host running.</p></details>
 </section>
 </main>
-<footer><span>solix.fyi</span><a href="#main">Back to top ↑</a></footer>
+<footer><span>solix.fyi</span><span><a href="/privacy">Privacy</a> · <a href="/terms">User Agreement</a> · <a href="#main">Back to top ↑</a></span></footer>
 </div>
 <script>
 (() => {

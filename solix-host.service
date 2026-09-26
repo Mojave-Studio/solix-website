@@ -1,0 +1,17 @@
+# User-session unit — needs a systemd --user manager (normal desktops).
+# For headless boxes without a login session (ZimaOS, servers) use the
+# system-level template instead: solix-host@.service → `systemctl enable
+# solix-host@<user>`. Binary goes to ~/.local/bin/solix-host either way.
+[Unit]
+Description=Solix desktop host
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/solix-host serve
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=default.target

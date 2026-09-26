@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy Policy — Solix</title>
+<meta name="description" content="What Solix stores, what stays on your devices, and which services we use.">
+<link rel="canonical" href="https://solix.fyi/privacy">
+<meta name="theme-color" content="#141210">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --void: oklch(0.17 0.012 60); --void-2: oklch(0.22 0.014 60);
+  --ink: oklch(0.91 0.02 80); --muted: oklch(0.72 0.025 70);
+  --faint: oklch(0.65 0.02 65); --copper: oklch(0.75 0.14 55);
+  --amber: oklch(0.83 0.13 80); --rule: oklch(0.32 0.015 65);
+  --sans: "Martian Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease: cubic-bezier(.23, 1, .32, 1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+body { background: var(--void); color: var(--ink); font: 14px/1.8 var(--sans); -webkit-font-smoothing: antialiased; }
+::selection { background: var(--copper); color: var(--void); }
+a { color: var(--copper); text-underline-offset: 5px; }
+button, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 5px; }
+.wrap { max-width: 78rem; margin: auto; padding: 0 clamp(1.25rem, 4vw, 3rem); }
+.skip-link { position: absolute; top: -5rem; left: 1rem; z-index: 10; padding: .75rem; background: var(--void); }
+.skip-link:focus { top: 1rem; }
+nav { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.6rem 0; border-bottom: 1px solid var(--rule); }
+nav .host { display: inline-flex; align-items: center; gap: .55rem; min-height: 44px; color: var(--ink); text-decoration: none; }
+nav .host .wordmark { width: 76px; }
+.wordmark { display: block; aspect-ratio: 14 / 3; overflow: hidden; }
+.wordmark img { display: block; width: 100%; height: 100%; object-fit: cover; mix-blend-mode: screen; }
+.nav-links { display: flex; gap: clamp(.8rem, 3vw, 2rem); flex-wrap: wrap; }
+.nav-links a { color: var(--muted); font-size: .65rem; text-decoration: none; padding: .7rem 0; }
+main { padding: clamp(3rem, 7vw, 5.5rem) 0; }
+h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 300; letter-spacing: -.06em; line-height: 1.15; margin-bottom: .6rem; }
+h1 em { color: var(--copper); font-style: normal; }
+.updated { color: var(--faint); font-size: .65rem; margin-bottom: 3rem; }
+section { border-top: 1px solid var(--rule); padding: 2.2rem 0; }
+h2 { font-size: 1rem; font-weight: 500; margin-bottom: 1rem; }
+h2::before { content: attr(data-n); color: var(--faint); font-size: .65rem; margin-right: 1rem; font-weight: 400; }
+.prose { color: var(--muted); max-width: 46rem; font-size: .8rem; }
+.prose + .prose { margin-top: .9rem; }
+.prose strong { color: var(--ink); font-weight: 400; }
+.prose ul { list-style: none; margin-top: .5rem; }
+.prose li { padding-left: 1.2rem; position: relative; margin-top: .45rem; }
+.prose li::before { content: '·'; position: absolute; left: 0; color: var(--copper); }
+.prose li b { color: var(--ink); font-weight: 400; }
+table { border-collapse: collapse; margin-top: .8rem; font-size: .72rem; max-width: 46rem; width: 100%; }
+th, td { text-align: left; padding: .55rem .8rem .55rem 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { color: var(--faint); font-weight: 400; font-size: .6rem; }
+td { color: var(--muted); }
+td b { color: var(--ink); font-weight: 400; }
+footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: .65rem; color: var(--muted); }
+@media (hover: hover) and (pointer: fine) { a:hover { color: var(--amber); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<div class="wrap">
+<nav aria-label="Site">
+  <a class="host" href="/" aria-label="Solix home"><span class="wordmark"><img src="assets/solix-wordmark-white.png" width="1400" height="300" alt="Solix"></span></a>
+  <div class="nav-links"><a href="/terms">User Agreement</a><a href="/#get">Get Solix ↗</a></div>
+</nav>
+<main id="main">
+<h1>Privacy <em>Policy</em></h1>
+<p class="updated">Solix · Mojave Studio · Last updated September 26, 2026</p>
+
+<section>
+  <h2 data-n="01">The short version</h2>
+  <p class="prose">Solix connects your iPhone to <strong>your own</strong> Mac. We run a thin directory service so your phone can find your computers — nothing more. Your terminal content, code, secrets, and commands <strong>never touch our servers</strong>; device connections are peer-to-peer over LAN, Tailscale, or a direct endpoint. We collect no analytics, run no trackers, set no cookies, and sell nothing to anyone.</p>
+</section>
+
+<section>
+  <h2 data-n="02">What our service stores</h2>
+  <p class="prose">Our Cloudflare backend (a Worker plus a D1 database) holds exactly two tables of durable data:</p>
+  <ul class="prose">
+    <li><b>Account</b> — your Firebase UID, the email you verified, and the username you chose. That is the whole profile.</li>
+    <li><b>Devices</b> — each host or client you register: a stable id, the name you gave it, its platform, the last-reported endpoint (host:port or Tailscale name), and a last-seen timestamp. This exists so the app can list and reach your machines off-LAN.</li>
+  </ul>
+  <p class="prose">Separately, our key-value store holds <b>hashed</b> six-digit email-verification codes and per-address send counters. These expire automatically — codes within ten minutes, counters within a day.</p>
+</section>
+
+<section>
+  <h2 data-n="03">What never leaves your devices</h2>
+  <ul class="prose">
+    <li><b>Session traffic</b> — terminals, agent chat, screen content, and machine-control commands travel directly between your iPhone and your Mac. We are not a relay and cannot see any of it.</li>
+    <li><b>Secrets</b> — passwords, pairing keys, and tokens live in the device Keychain (or Secure Enclave) on each device. They are never transmitted to our service.</li>
+    <li><b>Your work</b> — source code, git history, instruction files, and agent memory stay on your machines.</li>
+    <li><b>iCloud data</b> — anything synced through CloudKit/CloudDocuments lives in <i>your</i> iCloud account, governed by Apple's terms, not ours.</li>
+  </ul>
+</section>
+
+<section>
+  <h2 data-n="04">Third-party services</h2>
+  <p class="prose">We deliberately keep the list short:</p>
+  <table>
+    <tr><th>Service</th><th>Role</th><th>Data it receives</th></tr>
+    <tr><td><b>Google Firebase Auth</b></td><td>Sign-in</td><td>Email/UID and OAuth credentials for your chosen provider</td></tr>
+    <tr><td><b>Sign in with Apple</b></td><td>Sign-in option</td><td>Apple ID authorization</td></tr>
+    <tr><td><b>Google Sign-In</b></td><td>Sign-in option</td><td>Google account authorization</td></tr>
+    <tr><td><b>GitHub OAuth</b></td><td>Sign-in option</td><td>GitHub account authorization</td></tr>
+    <tr><td><b>Cloudflare</b></td><td>Hosting, worker, email</td><td>Standard request logs; outbound verification mail</td></tr>
+    <tr><td><b>Apple iCloud</b></td><td>Sync (your account)</td><td>Whatever you choose to sync — we see none of it</td></tr>
+    <tr><td><b>Tailscale</b></td><td>Optional remote access</td><td>Your own tailnet, under your Tailscale account</td></tr>
+  </table>
+  <p class="prose" style="margin-top:1rem">Each provider's own privacy policy applies to the data it processes. We don't share, sell, or rent personal data, and we don't use it for advertising or AI training.</p>
+</section>
+
+<section>
+  <h2 data-n="05">The website</h2>
+  <p class="prose">solix.fyi is a static site on Cloudflare Pages. It has no analytics, no cookies, no fingerprinting, and no tracking pixels. Cloudflare may keep standard hosting logs (IP, user-agent, timestamps) under its own retention practices.</p>
+</section>
+
+<section>
+  <h2 data-n="06">Retention and deletion</h2>
+  <p class="prose">Verification codes and send counters expire automatically. Your account row and device rows persist while you use the service; deleting your account removes them (devices cascade with the account). To delete your account or any data, email <a href="mailto:info@solix.fyi">info@solix.fyi</a> from your verified address.</p>
+</section>
+
+<section>
+  <h2 data-n="07">Security notes</h2>
+  <p class="prose">Pairing between your phone and Mac uses cryptographic device identities — but the downloadable host's transport is authenticated, not encrypted. Keep it on networks you trust (your LAN or Tailscale) and don't expose it to the public internet. No system is perfectly secure; we minimize what exists to be breached.</p>
+</section>
+
+<section>
+  <h2 data-n="08">Children</h2>
+  <p class="prose">Solix is a developer tool not directed at children under 13, and we do not knowingly collect their data.</p>
+</section>
+
+<section>
+  <h2 data-n="09">Changes and contact</h2>
+  <p class="prose">If this policy changes, the updated version posts here with a new date. Questions or data requests: <a href="mailto:info@solix.fyi">info@solix.fyi</a>.</p>
+  <p class="prose">Mojave Studio · solix.fyi</p>
+</section>
+</main>
+<footer><span>solix.fyi</span><span><a href="/terms">User Agreement</a> · <a href="/">Back to site ↑</a></span></footer>
+</div>
+</body>
+</html>

@@ -164,8 +164,9 @@ h3 { font-size: .85rem; font-weight: 500; margin-bottom: .8rem; }
 .demo-progress li::before { content: ''; width: 5px; height: 5px; border: 1px solid var(--faint); border-radius: 50%; }
 .demo-progress li[aria-current="step"] { color: var(--copper); }
 .demo-progress li[aria-current="step"]::before { border-color: var(--copper); background: var(--copper); }
-.features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3.75rem; }
+.features { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2.5rem; margin-top: 3.75rem; }
 .feature { border-top: 1px solid var(--rule); padding-top: 1.3rem; }
+a.feature { color: inherit; text-decoration: none; }
 .feature p { color: var(--muted); font-size: .75rem; }
 .term { border: 1px solid var(--rule); background: var(--void-2); margin-top: 1.8rem; min-width: 0; }
 .term .bar { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 1rem; border-bottom: 1px solid var(--rule); font-size: .6rem; color: var(--muted); flex-wrap: wrap; }
@@ -177,7 +178,7 @@ details .prose { margin-top: .8rem; }
 details a { overflow-wrap: anywhere; }
 footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: .65rem; color: var(--muted); }
 @media (hover: hover) and (pointer: fine) { a:hover, button:hover { color: var(--amber); } }
-@media (max-width: 800px) { .hero-grid, .split { grid-template-columns: 1fr; gap: 2rem; } .features { gap: 1.4rem; } .hero { padding-top: 2.5rem; } }
+@media (max-width: 800px) { .hero-grid, .split { grid-template-columns: 1fr; gap: 2rem; } .features { grid-template-columns: repeat(2, 1fr); gap: 1.4rem; } .hero { padding-top: 2.5rem; } }
 @media (max-width: 560px) {
   nav { align-items: center; gap: .5rem; } .nav-links { gap: .55rem; } .nav-links a { font-size: .56rem; letter-spacing: -.02em; }
   .demo-options { gap: 1rem; } .demo-options small { display: none; } .demo-options button { font-size: .65rem; }
@@ -328,6 +329,7 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
     <article class="feature" id="deck"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><rect x="44" y="8" width="72" height="43" rx="4"/><path d="M80 51v8m-16 0h32"/><path class="signal-line" d="M54 33h9l5-13 9 24 8-16 6 5h15"/></svg></div><h3>Control</h3><p>Status, awake, brightness, lock.</p></article>
     <article class="feature" id="crew"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><rect x="35" y="8" width="90" height="48" rx="4"/><path d="m47 23 8 6-8 6"/><path class="terminal-cursor" d="M64 35h13"/><path d="M35 17h90"/></svg></div><h3>Terminal</h3><p>Shells and project work.</p></article>
     <article class="feature" id="mate"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><path d="M48 17h64M48 32h64M48 47h64"/><circle class="setting-one" cx="65" cy="17" r="5"/><circle class="setting-two" cx="98" cy="32" r="5"/></svg></div><h3>First Mate</h3><p>Instructions, commands, skills, Git.</p></article>
+    <a class="feature" id="skills" href="https://github.com/Mojave-Studio/solix-skills" target="_blank" rel="noreferrer"><div class="feature-art" aria-hidden="true"><svg viewBox="0 0 160 64"><rect x="48" y="12" width="30" height="16" rx="4"/><rect x="82" y="12" width="30" height="16" rx="4"/><rect x="65" y="36" width="30" height="16" rx="4"/></svg></div><h3>Skills</h3><p>Teach your agent the CLI ↗</p></a>
   </div>
 </section>
 <section id="get">
@@ -350,7 +352,7 @@ footer { border-top: 1px solid var(--rule); padding: 2rem 0; display: flex; just
 <span class="p">$</span> git clone https://github.com/Mojave-Studio/solix-skills ~/.config/solix-skills
 <span class="p">$</span> ~/.config/solix-skills/install.sh</pre>
   </div>
-  <p class="prose" style="margin-top:1.6rem"><a href="https://raw.githubusercontent.com/Mojave-Studio/solix-skills/main/README.md">Full CLI setup guide ↗</a></p>
+  <p class="prose" style="margin-top:1.6rem"><a href="https://github.com/Mojave-Studio/solix-skills">Browse the skills repo ↗</a></p>
 
   </details>
   <details><summary>Install &amp; CLI · Windows</summary><p class="prose">The Windows host is a single binary — no installer. Put it somewhere stable, run it, and keep it running.</p>

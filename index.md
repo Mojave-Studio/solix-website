@@ -40,7 +40,7 @@ git clone https://github.com/Mojave-Studio/solix-skills ~/.config/solix-skills
 ~/.config/solix-skills/install.sh
 ```
 
-[Full CLI setup guide](https://raw.githubusercontent.com/Mojave-Studio/solix-skills/main/README.md)
+[Full CLI setup guide](https://github.com/Mojave-Studio/solix-skills)
 
 ### Install & CLI — Windows
 

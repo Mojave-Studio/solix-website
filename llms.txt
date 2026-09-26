@@ -10,7 +10,7 @@ use a trusted LAN or Tailscale and do not expose it to the public internet.
 ## Read first
 
 - [Homepage (Markdown)](https://solix.fyi/index.md): the same page content as Markdown.
-- [Full CLI setup guide](https://raw.githubusercontent.com/Mojave-Studio/solix-skills/main/README.md): install and use the host CLI and skills.
+- [Full CLI setup guide](https://github.com/Mojave-Studio/solix-skills): install and use the host CLI and skills.
 
 ## Downloads
 
